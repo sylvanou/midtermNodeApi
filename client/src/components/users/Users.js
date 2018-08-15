@@ -55,9 +55,23 @@ class Users extends Component {
     this.getUsers();
   };
 
-  onEdit = e => {
-    console.log("Edit");
-  };
+  editUser(e) {
+    e.preventDefault();
+    console.log(e.target);
+    const user = e.target;
+    const edit = window.prompt(`Edit User: ${user.name}`);
+    axios.put(`/api/users/edit/${user.id}`);
+    // this.setState(currentState => {
+    //   return {
+    //     tasks: currentState.tasks.concat([
+    //       {
+    //         name: window.prompt("Add a new task"),
+    //         active: true
+    //       }
+    //     ])
+    //   };
+    // });
+  }
   render() {
     const users = this.state.users;
 
@@ -86,12 +100,21 @@ class Users extends Component {
         <ul className="user_table">
           {users.map(user => (
             <li key={user.id}>
-              <div className="user_name">Name: {user.name}</div>
-              <div className="user_email">Email: {user.email}</div>
-              <button className="edit">Edit</button>
-              <button id={user.id} className="delete" onClick={this.onRemove}>
-                Delete
-              </button>
+              <form>
+                <div className="user_name">Name: {user.name}</div>
+                <div className="user_email">Email: {user.email}</div>
+                <button
+                  id={user.id}
+                  name={user.name}
+                  className="edit"
+                  onClick={this.editUser}
+                >
+                  Edit
+                </button>
+                <button id={user.id} className="delete" onClick={this.onRemove}>
+                  Delete
+                </button>
+              </form>
             </li>
           ))}
         </ul>

@@ -71,8 +71,9 @@ router.post("/create", (req, res) => {
 });
 
 // PUT/Update user.id
-router.put("/:id", (req, res) => {
-  var update = req.body;
+router.put("/edit/:id", (req, res) => {
+
+  var update = req.body.name;
   console.log("update:", update);
     
   var user = users.findIndex(user => user.id == req.params.id);
